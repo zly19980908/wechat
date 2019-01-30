@@ -47,6 +47,14 @@
   overflow:hidden; /*超出一行文字自动隐藏*/
 }
 
+/*话题标题*/
+.topic_header{
+  margin: 0 20rpx 30rpx 20rpx;
+  width:650rpx;
+  height:5vh;
+  font-size: 60rpx;
+}
+
 /*话题照片*/
 .topic_image{
   margin: 20rpx 0 20rpx 0;
@@ -88,8 +96,12 @@ color: transparent;
 /*无边框按钮*/
 button::after{
   border:none;
-  height: 60rpx;
-  width: 60rpx;
+}
+ button{
+display:block;
+padding:0rpx;
+line-height:10px;
+background-color: rgba(255,255,255,0);
 }
 
 /*发布话题样式*/

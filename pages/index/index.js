@@ -9,6 +9,30 @@ Page({
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo')
   },
+  //与后台简单链接测试
+  bindtest: function () {
+    var that = this;
+    wx.request({
+      url: 'http://localhost:8080/wxggt/SearchResult',
+      data: {
+        username: '无锡观光团',
+        password: '123456'
+      },
+      method: 'GET',
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success: function (res) {
+        console.log(res.data.SoundResult);
+        that.setData({
+          motto: res.data.SoundResult[0].cName+"你好!",
+        });
+      },
+      fail: function (res) {
+        console.log(".....fail.....");
+      }
+    })
+  },
   //事件处理函数
   bindViewTap: function() {
     wx.navigateTo({
@@ -22,6 +46,9 @@ Page({
     })
   },
   onLoad: function () {
+    console.log(app)
+    console.log(app.globalData.userInfo);
+    app.changeTabBar();
     if (app.globalData.userInfo) {
       this.setData({
         userInfo: app.globalData.userInfo,

@@ -1,0 +1,67 @@
+/* pages/opentopic/opentopic.wxss */
+@import "../demo/demo.wxss";
+/*昵称样式*/
+.topic_nick{
+  text-align: center;
+  color:#d0d0d0;
+}
+/*话题标题*/
+.topic_header{
+  margin: 20rpx 25rpx 10rpx 25rpx;
+  border: 3rpx solid #d0d0d0;
+  font-size: 42rpx;
+  padding: 20rpx;
+  color: black;
+}
+/*聚焦样式*/
+.active{
+  border: 4rpx solid #5CACEE;
+}
+/*话题内容*/
+.topic_content{
+  margin: 0 25rpx 30rpx 25rpx; 
+  border: 3rpx solid #d0d0d0;
+  width: 698rpx;
+  font-size: 40rpx;
+  color: black;
+  display: flex;
+  flex-direction: column;
+}
+.topic_area{
+  margin: 20rpx; 
+  width: 658rpx;
+  font-size: 40rpx;
+  height: 20vh;
+  color: black;
+}
+/*隐藏滚动条*/
+::-webkit-scrollbar{
+width: 0;
+height: 0;
+color: transparent;
+}
+/*发布按钮*/
+.openbutton{
+  margin-left: 600rpx;
+  background: #5CACEE;
+  color: white;
+}
+/*照片大小*/
+.icon-image{
+  width: 210rpx;
+  height: 15vh;
+  margin-left: 20rpx;
+}
+.camera-button{
+  width: 210rpx;
+  height: 15vh;
+  margin-left: 20rpx;
+  padding: 10rpx 0 0 10rpx;
+  background:#d0d0d0;
+  opacity:0.2;
+}
+/*放照片容器*/
+.imageview_row{
+  flex-direction: row;
+  margin:20rpx 0 20rpx 0;/*上右下左*/
+}

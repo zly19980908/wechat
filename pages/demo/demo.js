@@ -1,4 +1,15 @@
 Page({
+  // 分享
+  onShareAppMessage: function () {
+    return {
+      title: '这是转发搜索结果',
+      path: '/page/demo/demo'
+    }
+  },
+  //刷新完毕停止刷新动作
+  onPullDownRefresh: function () {
+    wx.stopPullDownRefresh()
+  },
   data: {//变量只小写
     courseResult: 
     [

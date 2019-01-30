@@ -1,6 +1,16 @@
 // pages/topic/topic.js
 Page({
-
+  // 分享
+  onShareAppMessage: function () {
+    return {
+      title: '这是转发话题',
+      path: '/page/topic/topic'
+    }
+  },
+  //刷新完毕停止刷新动作
+  onPullDownRefresh:function(){
+    wx.stopPullDownRefresh()
+  },
   data: {
     redisplay:'none',
     resultText: ['微信', '微信小程序', '微信小', '微信程', '微信序'],
@@ -9,6 +19,7 @@ Page({
       {
       nick:"无锡观光团",
       time:"14分钟",
+      topicheader:"测试一下",
       topicdetail:"课程学习：搜索相关内容，观看教学视频，观看直播，社区讨论(发布讨论话题，针对话题进行讨论)，随堂测试，结业考试，课程练习，评教，课程老师信息查询，教学资料下载，打赏。.课堂",
       share:500,
       pv:670,
@@ -17,6 +28,7 @@ Page({
       {
         nick: "无锡观光团",
         time: "14分钟",
+        topicheader: "测试一下",
         topicdetail: "课程学习：搜索相关内容，观看教学视频，观看直播，社区讨论(发布讨论话题，针对话题进行讨论)，随堂测试，结业考试，课程练习，评教，课程老师信息查询，教学资料下载，打赏。.课堂",
         share: 500,
         pv: 670,
@@ -63,11 +75,18 @@ Page({
       redisplay: 'none',
     });
   },
+  //点击发布按钮跳转发布文章界面
+  opentalk:function(e){
+    wx.navigateTo({
+      url: '../opentopic/opentopic?nick='+"无锡观光园",//带参数跳转页面,不可以跳到导航栏页面
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    const app = getApp();
+    app.changeTabBar();
   },
 
   /**

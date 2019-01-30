@@ -1,0 +1,97 @@
+<!--pages/showcoursesource/showcoursesource.wxml-->
+<!--page-gesture滑动调节音量和亮度；show-mute-btn安置静音按钮；enable-play-gesture滑动控制进度-->
+<import src="../template/template.wxml" />
+<template is="tabbar" data="{{tabbar}}"/>
+<video class='video_header' src="https://apd-01b46791bbecf957f05bb033ee128125.v.smtcdns.com/om.tc.qq.com/A1y7Owc7L08xuiSJEQb0hfFOIxWAl80y1W6P0J3-jNrE/uwMRJfz-r5jAYaQXGdGnC2_ppdhgmrDlPaRvaV7F2Ic/g08320hq7u6.mp4?sdtfrom=v1010&guid=0aa5e0b3b36a3366fcac1de1662dbce1&vkey=B2B3A868F9B23BA327A5D0532E569E1EF773C9E0B428F4AAD930955BAD73FBFAE9AC7C17958774834AFD12CDA1AE04CBA56CD382E6A573339E35E82FBB42693DC7E468C6496170B34C928E145F80AF8609D3494FD6203B343FC754C5250BD4FD202298C069EB73968EA039D87C0BAE8852C6C7ADD545F9B9" page-gesture='true' show-mute-btn='true' title='测试一下' enable-play-gesture='true'></video>
+<view class='search_row' style='border-bottom: 4rpx solid #d0d0d0;'>
+    <view class="{{currentTab==0?'active':''}}" data-current="0" bindtap="clickTab">课程介绍</view>
+    <view class="{{currentTab==1?'active':''}}" data-current="1" bindtap="clickTab">课程大纲</view>
+    <view class="{{currentTab==2?'active':''}}" data-current="2" bindtap="clickTab">讨论区</view>
+  </view>
+<swiper current="{{currentTab}}" bindchange="swiperTab">
+  <swiper-item>
+    <scroll-view scroll-Y='true'>
+      <view class="view_column">
+        <text class="text_42">中基基础理论</text>
+        <view class="view_row text_30 dist_top10">
+          <view class="text_gray">
+          {{school}}   {{nick}}
+          </view>
+          <text class='dist_left120'>{{studyPeople}}参加</text>
+        </view>
+      </view>
+      <view class="divLine"></view>
+      <view class="view_column">
+        <text class="text_42">课程介绍</text>
+        <view class="text_30 dist_top20">
+        {{describe}}
+        </view>
+      </view>
+      <view class="divLine"></view>
+      <view class='view_column'>
+        <text class="text_42">教师</text>
+        <view class='row dist_top20'>
+          <image src="../../image/test.jpg" class="savatar"></image>
+          <view class="column">
+            <view class="text_30">{{nick}}</view>
+            <view class="text_30 dist_top20">{{school}}</view>
+          </view>
+        </view>
+      </view>
+      <view class="divLine"></view>
+    </scroll-view>
+  </swiper-item>
+  <swiper-item>
+    <scroll-view>
+    <view class='view_column'>
+      <block wx:for="{{sourceResult}}">
+        <view wx:if="{{item[0]==='第'|item[0]==='课'}}" class="text_42 dist_bottom10">
+          <navigator url='../opentopic/opentopic'>{{item}}</navigator>
+        </view>
+        <view wx:else class='text_30 text_gray dist_bottom10'>
+          <navigator url='../opentopic/opentopic'>{{item}}</navigator>
+        </view>
+      </block>
+    </view>
+    </scroll-view>
+  </swiper-item>
+  <swiper-item>
+    <scroll-view>
+      <block wx:for="{{topicResult}}">
+      <view class="column topic_content">
+        <view style='display:flex;flex-direction:row;'>
+          <image src="../../image/test.jpg" class="havatar"></image>
+          <view class="column" style='margin-top:20rpx;'>
+            <view class="text_42">{{item.nick}}</view>
+            <view class="view_row">
+              <image src="../../image/time.jpg" style='width:36rpx;height:36rpx;margin:5rpx 5rpx 0 5rpx;'></image>
+              <view class="text_36" style='color:#d0d0d0'>{{item.time}}前</view>
+            </view>
+          </view>
+          <image src="../../image/new1.png" class="hot_icon"></image>
+        </view>
+        <view class='topic_header'>{{item.topicheader}}</view>
+        <view class="text_36 topic_detail">
+          {{item.topicdetail}}
+        </view>
+        <view class="view_row topic_image">
+          <image src="../../image/test.jpg" style='width:200rpx;height:160rpx;margin:0rpx 20rpx 0 20rpx;'></image>
+          <image src="../../image/test.jpg" style='width:200rpx;height:160rpx;margin:0rpx 20rpx 0 20rpx;'></image>
+          <image src="../../image/test.jpg" style='width:200rpx;height:160rpx;margin:0rpx 20rpx 0 20rpx;'></image>
+        </view>
+        <view class="view_row topic_action">
+          <button>
+            <image src="../../image/share.jpg"></image>
+          </button>{{item.share}}
+          <button>
+            <image src="../../image/talk.jpg"></image>
+          </button>{{item.pv}}
+          <button>
+            <image src="../../image/like.jpg"></image>
+          </button>{{item.like}}
+        </view>
+      </view>
+    </block>
+    </scroll-view>
+  </swiper-item>
+</swiper>

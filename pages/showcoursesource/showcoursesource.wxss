@@ -1,0 +1,88 @@
+/* pages/showcoursesource/showcoursesource.wxss */
+@import "../demo/demo.wxss";
+@import "../topic/topic.wxss";
+/*课程视频*/
+.video_header{
+  width: 750rpx;
+  height: 30vh;
+}
+/*选项卡切换栏样式*/
+.search_row view{
+  margin: 15rpx 48rpx 0 48rpx;
+}
+/*大标题文字*/
+.text_46{
+  font-size: 46rpx;
+}
+/*纵向流动视图*/
+.view_column{
+  display: flex;
+  flex-direction: column;
+  margin: 1vh 0 3vh 48rpx;/*上 右 下 左*/
+}
+/*隐藏滚动条*/
+::-webkit-scrollbar{
+width: 0;
+height: 0;
+color: transparent;
+}
+/*灰色文字*/
+.text_gray{
+  color:#d0d0d0;
+}
+/*文字上边距2vh*/
+.dist_top20{
+  margin-top:2vh;
+}
+/*文字上边距1vh*/
+.dist_top10{
+  margin-top: 1vh;
+}
+/*文字下边距1vh*/
+.dist_bottom10{
+  margin-bottom: 1vh;
+}
+/*文字左边距*/
+.dist_left120{
+  margin-left: 120rpx;
+}
+/*文字大小30*/
+.text_30{
+  font-size: 30rpx;
+}
+/*水平分割线(覆盖前面样式的宽度)*/
+.divLine{
+  height: 1vh;
+}
+/*圆形头像*/
+.savatar{
+  width:100rpx;
+  height:10vh;
+  margin-right: 20rpx;
+  border-radius:50%;
+}
+/*讨论区圆形头像*/
+.havatar{
+  width:120rpx;
+  height:12vh;
+  margin:20rpx;
+  border-radius:50%;
+}
+/*列流动视图*/
+.column{
+  display: flex;
+  flex-direction: column;
+}
+/*行流动视图*/
+.row{
+  display: flex;
+  flex-direction: row;
+}
+/*覆盖大标题大小*/
+.topic_header{
+  font-size: 42rpx;
+}
+/*覆盖话题内容边距*/
+.topic_content{
+  margin: 1vh 25rpx 3vh 25rpx;
+}
