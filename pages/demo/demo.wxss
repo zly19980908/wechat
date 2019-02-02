@@ -152,6 +152,7 @@ image {
   display: flex;
   font-size: 30rpx;
   text-align: end;
+  white-space: nowrap;
 }
 
 .view_row image {

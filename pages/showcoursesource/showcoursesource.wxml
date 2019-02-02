@@ -2,7 +2,7 @@
 <!--page-gesture滑动调节音量和亮度；show-mute-btn安置静音按钮；enable-play-gesture滑动控制进度-->
 <import src="../template/template.wxml" />
 <template is="tabbar" data="{{tabbar}}"/>
-<video class='video_header' src="https://apd-01b46791bbecf957f05bb033ee128125.v.smtcdns.com/om.tc.qq.com/A1y7Owc7L08xuiSJEQb0hfFOIxWAl80y1W6P0J3-jNrE/uwMRJfz-r5jAYaQXGdGnC2_ppdhgmrDlPaRvaV7F2Ic/g08320hq7u6.mp4?sdtfrom=v1010&guid=0aa5e0b3b36a3366fcac1de1662dbce1&vkey=B2B3A868F9B23BA327A5D0532E569E1EF773C9E0B428F4AAD930955BAD73FBFAE9AC7C17958774834AFD12CDA1AE04CBA56CD382E6A573339E35E82FBB42693DC7E468C6496170B34C928E145F80AF8609D3494FD6203B343FC754C5250BD4FD202298C069EB73968EA039D87C0BAE8852C6C7ADD545F9B9" page-gesture='true' show-mute-btn='true' title='测试一下' enable-play-gesture='true'></video>
+<video class='video_header' poster='../../image/test.jpg' src="https://apd-01b46791bbecf957f05bb033ee128125.v.smtcdns.com/om.tc.qq.com/A1y7Owc7L08xuiSJEQb0hfFOIxWAl80y1W6P0J3-jNrE/uwMRJfz-r5jAYaQXGdGnC2_ppdhgmrDlPaRvaV7F2Ic/g08320hq7u6.mp4?sdtfrom=v1010&guid=0aa5e0b3b36a3366fcac1de1662dbce1&vkey=B2B3A868F9B23BA327A5D0532E569E1EF773C9E0B428F4AAD930955BAD73FBFAE9AC7C17958774834AFD12CDA1AE04CBA56CD382E6A573339E35E82FBB42693DC7E468C6496170B34C928E145F80AF8609D3494FD6203B343FC754C5250BD4FD202298C069EB73968EA039D87C0BAE8852C6C7ADD545F9B9" page-gesture='true' show-mute-btn='true' title='测试一下' enable-play-gesture='true'></video>
 <view class='search_row' style='border-bottom: 4rpx solid #d0d0d0;'>
     <view class="{{currentTab==0?'active':''}}" data-current="0" bindtap="clickTab">课程介绍</view>
     <view class="{{currentTab==1?'active':''}}" data-current="1" bindtap="clickTab">课程大纲</view>
@@ -10,7 +10,7 @@
   </view>
 <swiper current="{{currentTab}}" bindchange="swiperTab">
   <swiper-item>
-    <scroll-view scroll-Y='true'>
+    <scroll-view scroll-y='true'>
       <view class="view_column">
         <text class="text_42">中基基础理论</text>
         <view class="view_row text_30 dist_top10">
@@ -42,7 +42,7 @@
     </scroll-view>
   </swiper-item>
   <swiper-item>
-    <scroll-view>
+    <scroll-view scroll-y='true'>
     <view class='view_column'>
       <block wx:for="{{sourceResult}}">
         <view wx:if="{{item[0]==='第'|item[0]==='课'}}" class="text_42 dist_bottom10">
@@ -56,7 +56,7 @@
     </scroll-view>
   </swiper-item>
   <swiper-item>
-    <scroll-view>
+    <scroll-view scroll-y='true'>
       <block wx:for="{{topicResult}}">
       <view class="column topic_content">
         <view style='display:flex;flex-direction:row;'>

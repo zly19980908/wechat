@@ -1,9 +1,9 @@
 {
   "pages": [
-    "pages/index/index",
+    "pages/topic/topic",
     "pages/logs/logs",
     "pages/demo/demo",
-    "pages/topic/topic",
+    "pages/index/index",
     "pages/opentopic/opentopic",
     "pages/showallcourse/showallcourse",
     "pages/showcoursesource/showcoursesource",

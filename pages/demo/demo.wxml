@@ -3,7 +3,7 @@
     <view class="search">
       <view class="df search_arr">
         <icon class="searchcion" size='20' type='search'></icon>
-        <input type='text' focus="{{focus}}" confirm-type='send' class="" bindinput="showResult" bindblur="closeResult" placeholder="请输入关键字" value="{{searchValue}}" />
+        <input type='text' confirm-type='send' class="" bindinput="showResult" bindblur="closeResult" placeholder="请输入关键字" value="{{searchValue}}" />
       </view>
     </view>
     <view class='sousuo' bindtap='bindViewTap'>搜索</view>
@@ -32,25 +32,28 @@
         <!--视频页-->
         <view class="video_column">
         <block wx:for='{{courseResult}}'>
-          <view class="video_row">
+          <view wx:if="{{index<courseCount}}" class="video_row">
             <view class="video_img">
               <image src="{{item.image}}" mode='aspectFit'></image>
             </view>
             <view class="video_detail">
-              <text decode='true' space='emsp'>{{item.detail}}</text>
+              <text decode='true' space='emsp'>{{item.cName}}\n{{item.tName}}\n</text>
               <view class="view_row">
                 <image src="../../image/star.jpg"></image>
-                <text decode='true' space='emsp'> {{item.traffic}}</text>
+                <text decode='true' space='emsp'> {{item.pageview}}人观看</text>
               </view>
             </view>
             <view class="video_price">
-              {{item.price}}
+              ￥{{item.price}}
             </view>
           </view>
           </block>
         </view>
-        <view class="video_nextpage">
-          更多64篇视频>
+        <view wx:if="{{courseCount<courseResult.length}}" class="video_nextpage" bindtap='changeCourseCount'>
+          加载更多>
+        </view>
+        <view wx:else class="video_nextpage">
+          已经没有更多啦
         </view>
       </scroll-view>
     </swiper-item>
@@ -59,25 +62,28 @@
         <!--小视频页-->
         <view class="video_column">
           <block wx:for="{{videoResult}}">
-          <view class="video_row">
+          <view wx:if="{{index<videoCount}}" class="video_row">
             <view class="video_img">
               <image src="{{item.image}}" mode='aspectFit'></image>
             </view>
             <view class="video_detail">
-              <text decode='true' space='emsp'>{{item.detail}}</text>
+              <text decode='true' space='emsp'>{{item.sdescribe}}\n{{item.uName}}\n</text>
               <view class="view_row">
                 <image src="../../image/video.jpg"></image>
-                <text decode='true' space='emsp'> {{item.traffic}}</text>
+                <text decode='true' space='emsp'> {{item.pageview}}人观看</text>
               </view>
             </view>
             <view class="svideo_like">
-              {{item.like}}个赞
+              {{item.surname}}个赞
             </view>
           </view>
           </block>
         </view>
-        <view class="video_nextpage">
-          更多64篇小视频>
+        <view wx:if="{{videoCount<videoResult.length}}" class="video_nextpage" bindtap='changeVideoCount'>
+          加载更多>
+        </view>
+        <view wx:else class="video_nextpage">
+          已经没有更多啦
         </view>
       </scroll-view>
     </swiper-item>
@@ -86,7 +92,7 @@
         <!--讨论页-->
         <view class="video_column">
         <block wx:for="{{topicResult}}">
-          <view class="view_column view_bottomborder">
+          <view wx:if="{{index<topicCount}}" class="view_column view_bottomborder">
             <text class="text_gray text_42">{{item.topicDetail}}</text>
             <view class="view_top10">
               <block wx:if="{{item.image}}">
@@ -99,8 +105,11 @@
           </view>
         </block>
         </view>
-        <view class="video_nextpage">
-          更多68篇讨论>
+        <view wx:if="{{topicCount<topicResult.length}}" class="video_nextpage" bindtap='changeTopicCount'>
+          加载更多>
+        </view>
+        <view wx:else class="video_nextpage">
+          已经没有更多啦
         </view>
       </scroll-view>
     </swiper-item>
@@ -109,25 +118,28 @@
         <!--音频页-->
         <view class="video_column">
         <block wx:for="{{listenResult}}">
-          <view class="video_row">
+          <view wx:if="{{index<listenCount}}" class="video_row">
             <view class="video_img">
               <image src="{{item.image}}" mode='aspectFit'></image>
             </view>
             <view class="video_detail">
-              <text decode='true' space='emsp'>{{item.detail}}</text>
+              <text decode='true' space='emsp'>{{item.title}}\n{{item.uName}}\n</text>
               <view class="view_row">
                 <image src="../../image/listen.jpg" style="margin:6rpx;width:30rpx;height:30rpx;"></image>
-                <text space='emsp'> {{item.traffic}}</text>
+                <text space='emsp'> {{item.pageview}}</text>
               </view>
             </view>
-            <view class="svideo_like">
+            <view class="svideo_like" bindtap='changeListenCount'>
               {{item.like}}个赞
             </view>
           </view>
         </block>
         </view>
-        <view class="video_nextpage">
-          更多64篇音频>
+        <view wx:if="{{listenCount<listenResult.length}}" class="video_nextpage" bindtap='changeListenCount'>
+          加载更多>
+        </view>
+        <view wx:else class="video_nextpage">
+          已经没有更多啦
         </view>
       </scroll-view>
     </swiper-item>

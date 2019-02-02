@@ -28,7 +28,7 @@ App({
         
       },
       {
-        pagePath: "../logs/logs",
+        pagePath: "../showallcourse/showallcourse",
         text: "个人中心",
         iconPath: "../../image/person1.png",
         selectedIconPath: "../../image/person2.png",

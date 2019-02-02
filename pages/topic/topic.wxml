@@ -19,18 +19,18 @@
 </view>
 <view class='topicmain view_column'>
   <view class="head_row">
-    <view class="head_view view_leftoval" style='color:{{color[0]}}' id="0" bindtap="bindChangView">综合</view>
-    <view class="head_view" style="border-left: 0;color:{{color[1]}}" id="1" bindtap="bindChangView">最新</view>
-    <view class="head_view" style="border-left: 0;color:{{color[2]}}" id="2" bindtap="bindChangView">最热</view>
-    <view class="head_view view_rightoval" id="3" style="border-left: 0;color:{{color[3]}}" bindtap="bindChangView">关注</view>
+    <view class="head_view view_leftoval" style='color:{{color[0]}}' id="0" bindtap="sortByThreeStandard">综合</view>
+    <view class="head_view" style="border-left: 0;color:{{color[1]}}" id="1" bindtap="sortByOpenTime">最新</view>
+    <view class="head_view" style="border-left: 0;color:{{color[2]}}" id="2" bindtap="sortByLike">最热</view>
+    <view class="head_view view_rightoval" id="3" style="border-left: 0;color:{{color[3]}}" bindtap="selectWhoILook">关注</view>
   </view>
-  <scroll-view>
+  <scroll-view scroll-y='true'>
     <block wx:for="{{topicResult}}">
       <view class="view_column topic_content">
         <view style='display:flex;flex-direction:row;'>
           <image src="../../image/test.jpg" class="avatar"></image>
           <view class="view_column" style='margin-top:20rpx;'>
-            <view class="text_42">{{item.nick}}</view>
+            <view class="text_42">{{item.initiator}}</view>
             <view class="view_row">
               <image src="../../image/time.jpg" style='width:36rpx;height:36rpx;margin:5rpx 5rpx 0 5rpx;'></image>
               <view class="text_36" style='color:#d0d0d0'>{{item.time}}前</view>
@@ -40,7 +40,7 @@
         </view>
         <view class='topic_header'>{{item.topicheader}}</view>
         <view class="text_42 topic_detail">
-          {{item.topicdetail}}
+          {{item.TopicDetail}}
         </view>
         <view class="view_row topic_image">
           <image src="../../image/test.jpg" style='width:200rpx;height:160rpx;margin:0rpx 20rpx 0 20rpx;'></image>
@@ -53,7 +53,7 @@
           </button>{{item.share}}
           <button>
             <image src="../../image/talk.jpg"></image>
-          </button>{{item.pv}}
+          </button>{{item.Pv}}
           <button>
             <image src="../../image/like.jpg"></image>
           </button>{{item.like}}

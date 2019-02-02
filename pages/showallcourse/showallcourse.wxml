@@ -10,27 +10,23 @@
     </view>
     <view class='sousuo' bindtap='bindViewTap'>搜索</view>
   </view>
-  <view class="searchResult" style='display:{{redisplay}}'>
-    <block wx:for='{{resultText}}'>
-      <view>
-        {{item}}
-      </view>
-    </block>
+  <scroll-view scroll-x="true" class='leader_scroll'>
+    <view class="view_row courseType">
+      <block wx:for="{{courseType}}">
+        <view class="text_42" bindtap='selectCourseType' data-type="{{item.cname}}">{{item.cname}}</view>
+      </block>
+    </view>
+  </scroll-view>
+  <view class="divLine margin_lr20"></view>
+  <view class='view_row margin_lr20'>
+    <view class='screen'>综合</view>
+    <view class='screen_virtual text_gray'>|</view>
+    <view class='screen' bindtap='sortByPageview'>热门</view>
+    <view class='screen_virtual text_gray'>|</view>
+    <view class='screen' bindtao='sortByDate'>最新</view>
   </view>
-  <view class='search_row'>
-    <view class="{{currentTab==0?'active':''}}" data-current="0" bindtap="clickTab">课程</view>
-    <view class="{{currentTab==1?'active':''}}" data-current="1" bindtap="clickTab">微视</view>
-    <view class="{{currentTab==2?'active':''}}" data-current="2" bindtap="clickTab">问答</view>
-    <view class="{{currentTab==3?'active':''}}" data-current="3" bindtap="clickTab">音频</view>
-    <view style="color:#d0d0d0;margin-left:40rpx;margin-right:40rpx">|</view>
-    <view bindtap="showView">筛选</view>
-  </view>
-  <view class="text_recommended">{{swiperText[currentTab]}}</view>
-  <!--根据滑动页面的index修改标题-->
-  <view class="divLine"></view>
-  <swiper current="{{currentTab}}" bindchange="swiperTab">
-    <swiper-item>
-      <scroll-view scroll-x='false' scroll-y='true'>
+  <view class='content'>
+    <scroll-view scroll-x='false' scroll-y='true'>
         <!--视频页-->
         <view class="video_column">
         <block wx:for='{{courseResult}}'>
@@ -39,121 +35,24 @@
               <image src="{{item.image}}" mode='aspectFit'></image>
             </view>
             <view class="video_detail">
-              <text decode='true' space='emsp'>{{item.detail}}</text>
+              <text decode='true' space='emsp'>{{item.cName}}\n{{item.tName}}\n</text>
               <view class="view_row">
                 <image src="../../image/star.jpg"></image>
-                <text decode='true' space='emsp'> {{item.traffic}}</text>
+                <text decode='true' space='emsp'> {{item.pageview}}人观看</text>
               </view>
             </view>
             <view class="video_price">
-              {{item.price}}
+              ￥{{item.price}}
             </view>
           </view>
           </block>
         </view>
-        <view class="video_nextpage">
-          更多64篇视频>
+        <view wx:if="{{courseCount<courseResult.length}}" class="video_nextpage" bindtap='changeCourseCount'>
+          加载更多>
+        </view>
+        <view wx:else class="video_nextpage">
+          已经没有更多啦
         </view>
       </scroll-view>
-    </swiper-item>
-    <swiper-item>
-      <scroll-view scroll-x='false' scroll-y='true'>
-        <!--小视频页-->
-        <view class="video_column">
-          <block wx:for="{{videoResult}}">
-          <view class="video_row">
-            <view class="video_img">
-              <image src="{{item.image}}" mode='aspectFit'></image>
-            </view>
-            <view class="video_detail">
-              <text decode='true' space='emsp'>{{item.detail}}</text>
-              <view class="view_row">
-                <image src="../../image/video.jpg"></image>
-                <text decode='true' space='emsp'> {{item.traffic}}</text>
-              </view>
-            </view>
-            <view class="svideo_like">
-              {{item.like}}个赞
-            </view>
-          </view>
-          </block>
-        </view>
-        <view class="video_nextpage">
-          更多64篇小视频>
-        </view>
-      </scroll-view>
-    </swiper-item>
-    <swiper-item>
-      <scroll-view scroll-y='true'>
-        <!--讨论页-->
-        <view class="video_column">
-        <block wx:for="{{topicResult}}">
-          <view class="view_column view_bottomborder">
-            <text class="text_gray text_42">{{item.topicDetail}}</text>
-            <view class="view_top10">
-              <block wx:if="{{item.image}}">
-              <image style="height:300rpx;width:100%;" src="{{item.image}}"></image>
-              </block>
-              <view class="padding10 text_30 text_gray">
-                阅读数 {{item.viewCount}} | 评论数 {{item.pv}}
-              </view>
-            </view>
-          </view>
-        </block>
-        </view>
-        <view class="video_nextpage">
-          更多68篇讨论>
-        </view>
-      </scroll-view>
-    </swiper-item>
-    <swiper-item>
-      <scroll-view scroll-x='false' scroll-y='true'>
-        <!--音频页-->
-        <view class="video_column">
-        <block wx:for="{{listenResult}}">
-          <view class="video_row">
-            <view class="video_img">
-              <image src="{{item.image}}" mode='aspectFit'></image>
-            </view>
-            <view class="video_detail">
-              <text decode='true' space='emsp'>{{item.detail}}</text>
-              <view class="view_row">
-                <image src="../../image/listen.jpg" style="margin:6rpx;width:30rpx;height:30rpx;"></image>
-                <text space='emsp'> {{item.traffic}}</text>
-              </view>
-            </view>
-            <view class="svideo_like">
-              {{item.like}}个赞
-            </view>
-          </view>
-        </block>
-        </view>
-        <view class="video_nextpage">
-          更多64篇音频>
-        </view>
-      </scroll-view>
-    </swiper-item>
-  </swiper>
-</view>
-<!--遮挡，点击侧滑栏收回-->
-<view class="bg" style='display:{{display}}' bindtap='showMain'></view>
-<!--侧滑栏-->
-<view class="page_tab" style='display:{{tabdisplay}}'>
-  <view class="video_column" style="margin-top:20rpx">
-    <text class="text_42" space='emsp'> 视频类型</text>
-    <view class="video_row" style="margin-top:30rpx">
-      <button class="oval_component">基础版</button>
-      <button class="oval_component" style='margin-right:260rpx;'>进阶版</button>
-    </view>
-    <text class="text_42" space='emsp' style='margin-top:30rpx'> 价格区间</text>
-    <view class="video_row" style="margin-top:30rpx;">
-      <input class="oval_component" placeholder='最小值'></input>
-      <view class='centerLine'></view>
-      <input class="oval_component" placeholder='最大值'></input>
-    </view>
-    <view style="display:flex;margin-top:30rpx;">
-      <button class="halfovalLeft">重置</button>
-      <button class="halfovalRight">确定</button>
-    </view>
   </view>
 </view>

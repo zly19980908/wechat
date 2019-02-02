@@ -13,17 +13,17 @@ Page({
   data: {//变量只小写
     courseResult: 
     [
-      { image: '../../image/test.jpg', detail: 'CourseName\nTeacherName\n', traffic: 'Traffic', price: '￥19.00' }, 
-      { image: '../../image/test.jpg', detail: 'CourseName\nTeacherName\n', traffic: 'Traffic', price: '￥19.00' },
-      { image: '../../image/test.jpg', detail: 'CourseName\nTeacherName\n', traffic: 'Traffic', price: '￥19.00' }, 
-      { image: '../../image/test.jpg', detail: 'CourseName\nTeacherName\n', traffic: 'Traffic', price: '￥19.00' }
+      { image: '../../image/test.jpg', detail: 'CourseName\nTeacherName\n', traffic: 15, price: '19.00' }, 
+      { image: '../../image/test.jpg', detail: 'CourseName\nTeacherName\n', traffic: 18, price: '19.00' },
+      { image: '../../image/test.jpg', detail: 'CourseName\nTeacherName\n', traffic: 12, price: '19.00' }, 
+      { image: '../../image/test.jpg', detail: 'CourseName\nTeacherName\n', traffic: 30, price: '19.00' }
     ],
     videoResult:
     [
-      { image: '../../image/test.jpg', detail: 'CourseName\nTeacherName\n', traffic: 'Traffic', like: '34' },
-      { image: '../../image/test.jpg', detail: 'CourseName\nTeacherName\n', traffic: 'Traffic', like: '35' },
-      { image: '../../image/test.jpg', detail: 'CourseName\nTeacherName\n', traffic: 'Traffic', like: '36' },
-      { image: '../../image/test.jpg', detail: 'CourseName\nTeacherName\n', traffic: 'Traffic', like: '37' }
+      { image: '../../image/test.jpg', detail: 'CourseName\nTeacherName\n', traffic: 16, like: 34 },
+      { image: '../../image/test.jpg', detail: 'CourseName\nTeacherName\n', traffic: 18, like: 35 },
+      { image: '../../image/test.jpg', detail: 'CourseName\nTeacherName\n', traffic: 20, like: 36 },
+      { image: '../../image/test.jpg', detail: 'CourseName\nTeacherName\n', traffic: 16, like: 37 }
     ],
     topicResult:
     [
@@ -33,16 +33,20 @@ Page({
     ],
     listenResult:
     [
-      { image: '../../image/test.jpg', detail: 'CourseName\nTeacherName\n', traffic: 'Traffic', like: '27' },
-      { image: '../../image/test.jpg', detail: 'CourseName\nTeacherName\n', traffic: 'Traffic', like: '29' },
-      { image: '../../image/test.jpg', detail: 'CourseName\nTeacherName\n', traffic: 'Traffic', like: '16' },
-      { image: '../../image/test.jpg', detail: 'CourseName\nTeacherName\n', traffic: 'Traffic', like: '37' }
+      { image: '../../image/test.jpg', detail: 'CourseName\nTeacherName\n', traffic: 20, like: 27 },
+      { image: '../../image/test.jpg', detail: 'CourseName\nTeacherName\n', traffic: 16, like: 29 },
+      { image: '../../image/test.jpg', detail: 'CourseName\nTeacherName\n', traffic: 12, like: 16 },
+      { image: '../../image/test.jpg', detail: 'CourseName\nTeacherName\n', traffic: 31, like: 37 }
     ],
+    str:'',//搜索输入的字符串
     redisplay:'none',
     display: 'none',
     tabdisplay:'none',
-    focus: false,
     currentTab: 0,
+    courseCount: 4,
+    videoCount: 4,
+    topicCount: 4,
+    listenCount: 4,
     swiperText: ["推荐课程", "优选微视", "讨论问答", "精彩音频"],
     resultText:['微信','微信小程序','微信小','微信程','微信序']
   },
@@ -62,6 +66,30 @@ Page({
       currentTab: e.detail.current
     });
   },
+  changeCourseCount:function(){/*点击更多改变课程显示数量*/
+    var that = this;
+    that.setData({
+      courseCount:that.data.courseCount+5,
+    })
+  },
+  changeVideoCount: function () {/*点击更多改变小视频显示数量*/
+    var that = this;
+    that.setData({
+      videoCount: that.data.videoCount + 5,
+    })
+  },
+  changeTopicCount: function () {/*点击更多改变讨论显示数量*/
+    var that = this;
+    that.setData({
+      topicCount: that.data.topicCount + 5,
+    })
+  },
+  changeListenCount: function () {/*点击更多改变音频显示数量*/
+    var that = this;
+    that.setData({
+      listenCount: that.data.listenCount + 5,
+    })
+  },
   /*点击筛选弹出侧选框*/
   showView: function(e) {
     var that = this;
@@ -80,8 +108,29 @@ Page({
   },
   bindViewTap: function(e) {
     var that = this;
-    that.setData({
-      focus: true
+    wx.request({
+      url: 'http://localhost:8080/wxggt/SearchResult',//跳转路径
+      data: {//附带参数
+        str : "中",
+        str1 : "方",
+        str2 : "骚",
+        str3 : "你"
+      },
+      method: 'GET',//传递方式
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success: function (res) {//成功后操作
+        that.setData({
+          courseResult: res.data.CourseResult,
+          videoResult: res.data.SmallVideoResult,
+          listenResult: res.data.SoundResult,
+          topicResult: res.data.TopicResult,
+        });
+      },
+      fail: function (res) {//失败后操作
+        console.log(".....fail.....");
+      }
     })
   },
   formSubmit: function(e) {
@@ -95,7 +144,7 @@ Page({
     console.log(s[length-1]);
     if (s[length-1] == '微'){//判断输入的最后一个字
     that.setData({
-      redisplay: 'block'
+      redisplay: 'block'//根据最后一个字模糊补全
     });
     }
   },
@@ -103,7 +152,8 @@ Page({
   closeResult:function(e){
     var that = this;
     that.setData({
-      redisplay:'none',
+      str:e.detail.value,//获取输入值
+      redisplay:'none',//推送框隐藏
     });
   }
 })

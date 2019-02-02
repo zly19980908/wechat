@@ -86,3 +86,7 @@ color: transparent;
 .topic_content{
   margin: 1vh 25rpx 3vh 25rpx;
 }
+/*覆盖滑动框高*/
+scroll-view{
+  height: 78vh;
+}

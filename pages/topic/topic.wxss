@@ -43,8 +43,12 @@
 .topic_detail{
   margin: 0 20rpx 0 20rpx;
   width:650rpx;
-  height:20vh;
+  height:18vh;
   overflow:hidden; /*超出一行文字自动隐藏*/
+  text-overflow:ellipsis;/*溢出的以省略号显示*/
+  display: -webkit-box;
+  -webkit-line-clamp: 4;/*与上下两个属性结合使用*/
+  -webkit-box-orient: vertical;
 }
 
 /*话题标题*/
@@ -109,4 +113,9 @@ background-color: rgba(255,255,255,0);
   margin: 10rpx 0 0 30rpx;
   width:80rpx;
   height:60rpx;
+}
+
+/*覆盖滑动栏样式*/
+scroll-view{
+  height: 70vh;
 }

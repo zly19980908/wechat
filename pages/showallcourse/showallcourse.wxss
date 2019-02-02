@@ -1,1 +1,44 @@
 /* pages/showallcourse/showallcourse.wxss */
+@import "../demo/demo.wxss";
+.courseType{/*滑动导航栏*/
+  margin: 2vh 20rpx 2vh 20rpx;
+}
+.courseType view{/*滑动导航栏选项*/
+  margin-left:16rpx; 
+  padding: 1vh 20rpx 1vh 20rpx;
+  white-space: nowrap;/*文本不换行*/
+}
+.text_46{
+  font-size:46rpx;
+}
+/*覆盖滑动导航栏高*/
+.leader_scroll{
+  height: 10vh;
+}
+/*筛选栏样式*/
+.screen{
+  padding: 10rpx;
+}
+.screen_virtual{
+  padding: 8rpx 10rpx 12rpx 10rpx 
+}
+/*左边框*/
+.border_left{
+  border-left:2rpx solid #d0d0d0; 
+}
+/*右边框*/
+.border_right{
+  border-right:2rpx solid #d0d0d0; 
+}
+/*显示课程内容*/
+.content{
+  margin: 
+}
+/*左右边距20*/
+.margin_lr20{
+  margin: 0 20rpx 0 20rpx;
+}
+/*覆盖分割线长度*/
+.divLine{
+  width: 710rpx;
+}

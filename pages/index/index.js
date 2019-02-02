@@ -46,8 +46,6 @@ Page({
     })
   },
   onLoad: function () {
-    console.log(app)
-    console.log(app.globalData.userInfo);
     app.changeTabBar();
     if (app.globalData.userInfo) {
       this.setData({
