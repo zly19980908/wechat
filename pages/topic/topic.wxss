@@ -43,11 +43,10 @@
 .topic_detail{
   margin: 0 20rpx 0 20rpx;
   width:650rpx;
-  height:18vh;
   overflow:hidden; /*超出一行文字自动隐藏*/
   text-overflow:ellipsis;/*溢出的以省略号显示*/
   display: -webkit-box;
-  -webkit-line-clamp: 4;/*与上下两个属性结合使用*/
+  -webkit-line-clamp: 2;/*与上下两个属性结合使用*/
   -webkit-box-orient: vertical;
 }
 

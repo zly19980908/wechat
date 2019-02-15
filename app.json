@@ -7,7 +7,8 @@
     "pages/opentopic/opentopic",
     "pages/showallcourse/showallcourse",
     "pages/showcoursesource/showcoursesource",
-    "pages/template/template"
+    "pages/template/template",
+    "pages/test/test"
   ],
   "window": {
     "enablePullDownRefresh": true,

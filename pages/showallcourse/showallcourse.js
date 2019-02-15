@@ -62,6 +62,8 @@ Page({
     ],
     pCourseResult: [],
     str:'',//搜索的字符串
+    resultText:[],//模糊补全输入
+    redisplay:'none',
   },
   //根据某一属性比较数组
   compare: function(property) {
@@ -121,21 +123,45 @@ Page({
   //输入时自动匹配
   showResult: function (e) {
     var that = this;
-    var s = e.detail.value.split('');//将输入得字符串分割成一个个字符
-    var length = s.length;//数组长度
-    console.log(s[length - 1]);
-    if (s[length - 1] == '微') {//判断输入的最后一个字
-      that.setData({
-        redisplay: 'block'//根据最后一个字模糊补全
-      });
+    if(e.detail.value==''){
+      return;
     }
+    that.setData({
+      str: e.detail.value,
+    })
+    wx.request({
+      url: 'http://localhost:8080/wxggt/CompleteCourseInput',//请求路径
+      data: {//附带参数
+        str: e.detail.value,
+      },
+      method: 'GET',//传输方式
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success: function (res) {//成功后操作
+      console.log(res);
+        that.setData({
+          resultText: res.data,
+          redisplay: 'block'
+        });
+      },
+      fail: function (res) {//失败后操作
+        console.log(".....fail.....");
+      }
+    })
   },
   //输入完成下方消失
   closeResult: function (e) {
     var that = this;
     that.setData({
-      str: e.detail.value,//获取输入值
       redisplay: 'none',//推送框隐藏
+    });
+  },
+  //清除搜索框值
+  clearInput: function () {
+    var that = this;
+    that.setData({
+      str: ""
     });
   },
   //点击搜索查询

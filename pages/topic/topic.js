@@ -16,34 +16,7 @@ Page({
     redisplay:'none',
     resultText: ['微信', '微信小程序', '微信小', '微信程', '微信序'],
     color: ["#5CACEE", "black", "black", "black"],
-    topicResult:[
-      {
-      nick:"无锡观光团",
-      time:"14分钟",
-      topicheader:"测试一下",
-      topicdetail:"课程学习：搜索相关内容，观看教学视频，观看直播，社区讨论(发布讨论话题，针对话题进行讨论)，随堂测试，结业考试，课程练习，评教，课程老师信息查询，教学资料下载，打赏。.课堂",
-      share:500,
-      pv:670,
-      like:5000
-      },
-      {
-        nick: "无锡观光团",
-        time: "14分钟",
-        topicheader: "测试一下",
-        topicdetail: "课程学习：搜索相关内容，观看教学视频，观看直播，社区讨论(发布讨论话题，针对话题进行讨论)，随堂测试，结业考试，课程练习，评教，课程老师信息查询，教学资料下载，打赏。.课堂",
-        share: 400,
-        pv: 260,
-        like: 4700
-      },
-      {
-        nick: "无锡观光团",
-        time: "14分钟",
-        topicheader: "测试一下",
-        topicdetail: "课程学习：搜索相关内容，观看教学视频，观看直播，社区讨论(发布讨论话题，针对话题进行讨论)，随堂测试，结业考试，课程练习，评教，课程老师信息查询，教学资料下载，打赏。.课堂",
-        share: 600,
-        pv: 360,
-        like: 5200
-      }]
+    topicResult:[]
     },
   //根据某一属性从大到小比较数组
   compare: function (property) {
@@ -58,8 +31,6 @@ Page({
     return function (a, b) {
       var value1 = a[property] + a[property1] + a[property2];
       var value2 = b[property] + b[property1] + b[property2];
-      console.log(value1);
-      console.log(value2);
       return value2 - value1;
     }
   },
@@ -68,7 +39,7 @@ Page({
     var that = this;
     that.bindChangView(e);
     that.setData({
-      topicResult: that.data.topicResult.sort(that.compare("like")),
+      topicResult: that.data.topicResult.sort(that.compare("liked")),
     })
   },
   //点击最新根据发布时间排序
@@ -84,7 +55,7 @@ Page({
     var that = this;
     that.bindChangView(e);
     that.setData({
-      topicResult: that.data.topicResult.sort(that.compare2("like","share","pv")),
+      topicResult: that.data.topicResult.sort(that.compare2("liked","share","Pv")),
     })
   },
   /*点击view改变字体颜色 */
@@ -109,14 +80,32 @@ Page({
   //输入时自动匹配
   showResult: function (e) {
     var that = this;
-    var s = e.detail.value.split('');//将输入得字符串分割成一个个字符
-    var length = s.length;//数组长度
-    console.log(s[length - 1]);
-    if (s[length - 1] == '微') {//判断输入的最后一个字
-      that.setData({
-        redisplay: 'block'
-      });
+    if (e.detail.value == '') {
+      return;
     }
+    that.setData({
+      str:e.detail.value,
+    })
+    wx.request({
+      url: 'http://localhost:8080/wxggt/CompleteTopicInput',//请求路径
+      data: {//附带参数
+        str: e.detail.value,
+      },
+      method: 'GET',//传输方式
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success: function (res) {//成功后操作
+      console.log(res);
+        that.setData({
+          resultText: res.data,
+          redisplay:'block'
+        });
+      },
+      fail: function (res) {//失败后操作
+        console.log(".....fail.....");
+      }
+    })
   },
   //点击搜索向后台发送请求
   bindViewTap:function(e){
@@ -131,7 +120,6 @@ Page({
         'content-type': 'application/json' // 默认值
       },
       success: function (res) {//成功后操作
-        console.log(res);
         that.setData({
           topicResult: res.data,
         });
@@ -141,12 +129,26 @@ Page({
       }
     })
   },
+  //点击补全内容跳转
+  completeInput: function (e) {
+    var that = this;
+    that.setData({
+      str: e.currentTarget.dataset.name,//将所选内容写入输入框
+    })
+    that.bindViewTap(e);//调用搜索按钮函数
+  },
   //输入完成下方消失
   closeResult: function (e) {
     var that = this;
     that.setData({
-      str:e.detail.value,
       redisplay: 'none',
+    });
+  },
+  //清除搜索框值
+  clearInput: function () {
+    var that = this;
+    that.setData({
+      str: ""
     });
   },
   //点击发布按钮跳转发布文章界面
@@ -161,6 +163,25 @@ Page({
   onLoad: function (options) {
     const app = getApp();
     app.changeTabBar();
+    var that = this;
+    wx.request({
+      url: 'http://localhost:8080/wxggt/ShowAllTopicServlet',//请求路径
+      data: {//附带参数
+        topicdetail: '',
+      },
+      method: 'GET',//传输方式
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success: function (res) {//成功后操作
+        that.setData({
+          topicResult: res.data,
+        });
+      },
+      fail: function (res) {//失败后操作
+        console.log(".....fail.....");
+      }
+    })
   },
 
   /**
@@ -174,7 +195,8 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    //发表完话题刷新页面
+    this.onLoad();
   },
 
   /**

@@ -39,16 +39,16 @@ Page({
       { image: '../../image/test.jpg', detail: 'CourseName\nTeacherName\n', traffic: 31, like: 37 }
     ],
     str:'',//搜索输入的字符串
-    redisplay:'none',
-    display: 'none',
-    tabdisplay:'none',
-    currentTab: 0,
-    courseCount: 4,
-    videoCount: 4,
-    topicCount: 4,
-    listenCount: 4,
-    swiperText: ["推荐课程", "优选微视", "讨论问答", "精彩音频"],
-    resultText:['微信','微信小程序','微信小','微信程','微信序']
+    redisplay:'none',//模糊补充输入页
+    display: 'none',//遮荫栏
+    tabdisplay:'none',//筛选栏
+    currentTab: 0,//当前所处滑块
+    courseCount: 4,//课程显示条数
+    videoCount: 4,//小视频显示数
+    topicCount: 4,//话题显示数
+    listenCount: 4,//音频显示数
+    swiperText: ["推荐课程", "优选微视", "讨论问答", "精彩音频"],//滑块标题
+    resultText:['微信','微信小程序','微信小','微信程','微信序']//模糊补充结果
   },
   clickTab: function(e) { /*点击选项卡切换页面*/
     var that = this; /*将this赋值给临时的that*/
@@ -111,10 +111,7 @@ Page({
     wx.request({
       url: 'http://localhost:8080/wxggt/SearchResult',//跳转路径
       data: {//附带参数
-        str : "中",
-        str1 : "方",
-        str2 : "骚",
-        str3 : "你"
+        str : that.data.str,
       },
       method: 'GET',//传递方式
       header: {
@@ -133,27 +130,58 @@ Page({
       }
     })
   },
+  //点击补全内容跳转
+  completeInput:function(e){
+    var that = this;
+    that.setData({
+      str:e.currentTarget.dataset.name,//将所选内容写入输入框
+    })
+    that.bindViewTap(e);//调用搜索按钮函数
+  },
   formSubmit: function(e) {
     console.log('form发生了submit事件')
   },
   //输入时自动匹配
   showResult:function(e){
     var that = this;
-    var s = e.detail.value.split('');//将输入得字符串分割成一个个字符
-    var length = s.length;//数组长度
-    console.log(s[length-1]);
-    if (s[length-1] == '微'){//判断输入的最后一个字
-    that.setData({
-      redisplay: 'block'//根据最后一个字模糊补全
-    });
+    if (e.detail.value == '') {
+      return;
     }
+    that.setData({
+      str: e.detail.value,
+    })
+    wx.request({
+      url: 'http://localhost:8080/wxggt/CompleteAllInput',//请求路径
+      data: {//附带参数
+        str: e.detail.value,
+      },
+      method: 'GET',//传输方式
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success: function (res) {//成功后操作
+        console.log(res);
+        that.setData({
+          resultText: res.data,
+          redisplay: 'block'
+        });
+      },
+      fail: function (res) {//失败后操作
+        console.log(".....fail.....");
+      }
+    })
   },
    //输入完成下方消失
   closeResult:function(e){
     var that = this;
     that.setData({
-      str:e.detail.value,//获取输入值
       redisplay:'none',//推送框隐藏
     });
+  },
+  //点击课程跳转课程详细
+  bindViewCourse:function(e){
+    wx.navigateTo({
+      url: '../showcoursesource/showcoursesource?cNO='+e.currentTarget.dataset.id
+    })
   }
 })

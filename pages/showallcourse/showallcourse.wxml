@@ -5,11 +5,21 @@
     <view class="search">
       <view class="df search_arr">
         <icon class="searchcion" size='20' type='search'></icon>
-        <input type='text' focus="{{focus}}" confirm-type='send' class="" bindinput="showResult" bindblur="closeResult" placeholder="请输入关键字" value="{{searchValue}}" />
+        <view class="weui-icon-clear" style='margin-left:200rpx;' bindtap="clearInput">
+        <icon wx:if="{{str.length > 0}}" type="clear" size="20"></icon>
+        </view>
+        <input type='text' focus="{{focus}}" confirm-type='send' class="" bindinput="showResult" bindblur="closeResult" placeholder="请输入关键字" value="{{str}}" />
       </view>
     </view>
     <view class='sousuo' bindtap='bindViewTap'>搜索</view>
   </view>
+  <scroll-view class="searchResult" style='display:{{redisplay}}'>
+    <block wx:for='{{resultText}}'>
+      <view data-id='{{item.id}}'>
+        {{item.cName}}
+      </view>
+    </block>
+  </scroll-view>
   <scroll-view scroll-x="true" class='leader_scroll'>
     <view class="view_row courseType">
       <block wx:for="{{courseType}}">
@@ -32,13 +42,13 @@
         <block wx:for='{{courseResult}}'>
           <view class="video_row">
             <view class="video_img">
-              <image src="{{item.image}}" mode='aspectFit'></image>
+              <image src="../../image/{{item.imageUrl}}" mode='aspectFit'></image>
             </view>
             <view class="video_detail">
               <text decode='true' space='emsp'>{{item.cName}}\n{{item.tName}}\n</text>
               <view class="view_row">
                 <image src="../../image/star.jpg"></image>
-                <text decode='true' space='emsp'> {{item.pageview}}人观看</text>
+                <text decode='true' space='ensp'> {{item.pageview}}人观看</text>
               </view>
             </view>
             <view class="video_price">

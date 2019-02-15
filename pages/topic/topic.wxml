@@ -5,17 +5,20 @@
   <view class="search">
     <view class="df search_arr">
       <icon class="searchcion" style='margin-left:120rpx;' size='20' type='search'></icon>
-      <input type='text' focus="{{focus}}" confirm-type='send' class="" bindinput="showResult" bindblur="closeResult" placeholder="请输入关键字" value="{{searchValue}}" />
+      <view class="weui-icon-clear" style='margin-left:220rpx;' bindtap="clearInput">
+      <icon wx:if="{{str.length > 0}}" type="clear" size="20"></icon>
+      </view>
+      <input type='text' focus="{{focus}}" confirm-type='send' class="" bindinput="showResult" bindblur="closeResult" placeholder="请输入关键字" value="{{str}}" />
     </view>
   </view>
   <view class='sousuo' bindtap='bindViewTap'>搜索</view>
-  <view class="searchResult" style='display:{{redisplay}}'>
+  <scroll-view class="searchResult" style='display:{{redisplay}}'>
     <block wx:for='{{resultText}}'>
-      <view>
-        {{item}}
+      <view data-id='{{item.id}}' data-name="{{item.name}}" bindtap='completeInput'>
+        {{item.name}}
       </view>
     </block>
-  </view>
+  </scroll-view>
 </view>
 <view class='topicmain view_column'>
   <view class="head_row">
@@ -33,19 +36,19 @@
             <view class="text_42">{{item.initiator}}</view>
             <view class="view_row">
               <image src="../../image/time.jpg" style='width:36rpx;height:36rpx;margin:5rpx 5rpx 0 5rpx;'></image>
-              <view class="text_36" style='color:#d0d0d0'>{{item.time}}前</view>
+              <view class="text_36" style='color:#d0d0d0'>{{item.openTime}}前</view>
             </view>
           </view>
           <image src="../../image/new1.png" class="hot_icon"></image>
         </view>
-        <view class='topic_header'>{{item.topicheader}}</view>
+        <view class='topic_header'>{{item.title}}</view>
         <view class="text_42 topic_detail">
           {{item.TopicDetail}}
         </view>
-        <view class="view_row topic_image">
-          <image src="../../image/test.jpg" style='width:200rpx;height:160rpx;margin:0rpx 20rpx 0 20rpx;'></image>
-          <image src="../../image/test.jpg" style='width:200rpx;height:160rpx;margin:0rpx 20rpx 0 20rpx;'></image>
-          <image src="../../image/test.jpg" style='width:200rpx;height:160rpx;margin:0rpx 20rpx 0 20rpx;'></image>
+        <view wx:if="{{item.imageUrl}}" class="view_row topic_image">
+          <image src="../../image/{{item.imageUrl}}" style='width:200rpx;height:160rpx;margin:0rpx 20rpx 0 20rpx;'></image>
+          <image src="../../image/{{item.imageUrl}}" style='width:200rpx;height:160rpx;margin:0rpx 20rpx 0 20rpx;'></image>
+          <image src="../../image/{{item.imageUrl}}" style='width:200rpx;height:160rpx;margin:0rpx 20rpx 0 20rpx;'></image>
         </view>
         <view class="view_row topic_action">
           <button>
@@ -56,7 +59,7 @@
           </button>{{item.Pv}}
           <button>
             <image src="../../image/like.jpg"></image>
-          </button>{{item.like}}
+          </button>{{item.liked}}
         </view>
       </view>
     </block>

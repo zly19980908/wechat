@@ -3,18 +3,21 @@
     <view class="search">
       <view class="df search_arr">
         <icon class="searchcion" size='20' type='search'></icon>
-        <input type='text' confirm-type='send' class="" bindinput="showResult" bindblur="closeResult" placeholder="请输入关键字" value="{{searchValue}}" />
+        <view class="weui-icon-clear" style='margin-left:200rpx;' bindtap="clearInput">
+        <icon wx:if="{{str.length > 0}}" type="clear" size="20"></icon>
+        </view>
+        <input type='text' confirm-type='send' class="" bindinput="showResult" bindblur="closeResult" placeholder="请输入关键字" value="{{str}}" />
       </view>
     </view>
     <view class='sousuo' bindtap='bindViewTap'>搜索</view>
   </view>
-  <view class="searchResult" style='display:{{redisplay}}'>
+  <scroll-view class="searchResult" style='display:{{redisplay}}'>
     <block wx:for='{{resultText}}'>
-      <view>
+      <view bindtap='completeInput' data-name="{{item}}">
         {{item}}
       </view>
     </block>
-  </view>
+  </scroll-view>
   <view class='search_row'>
     <view class="{{currentTab==0?'active':''}}" data-current="0" bindtap="clickTab">课程</view>
     <view class="{{currentTab==1?'active':''}}" data-current="1" bindtap="clickTab">微视</view>
@@ -32,15 +35,15 @@
         <!--视频页-->
         <view class="video_column">
         <block wx:for='{{courseResult}}'>
-          <view wx:if="{{index<courseCount}}" class="video_row">
+          <view wx:if="{{index<courseCount}}" class="video_row" data-id='{{item.cNo}}' bindtap='bindViewCourse'>
             <view class="video_img">
-              <image src="{{item.image}}" mode='aspectFit'></image>
+              <image src="../../image/{{item.imageUrl}}" mode='aspectFit'></image>
             </view>
             <view class="video_detail">
               <text decode='true' space='emsp'>{{item.cName}}\n{{item.tName}}\n</text>
               <view class="view_row">
                 <image src="../../image/star.jpg"></image>
-                <text decode='true' space='emsp'> {{item.pageview}}人观看</text>
+                <text decode='true' space='ensp'> {{item.pageview}}人观看</text>
               </view>
             </view>
             <view class="video_price">
@@ -64,13 +67,13 @@
           <block wx:for="{{videoResult}}">
           <view wx:if="{{index<videoCount}}" class="video_row">
             <view class="video_img">
-              <image src="{{item.image}}" mode='aspectFit'></image>
+              <image src="../../image/{{item.imageUrl}}" mode='aspectFit'></image>
             </view>
             <view class="video_detail">
               <text decode='true' space='emsp'>{{item.sdescribe}}\n{{item.uName}}\n</text>
               <view class="view_row">
                 <image src="../../image/video.jpg"></image>
-                <text decode='true' space='emsp'> {{item.pageview}}人观看</text>
+                <text decode='true' space='ensp'> {{item.pageview}}人观看</text>
               </view>
             </view>
             <view class="svideo_like">
@@ -93,13 +96,16 @@
         <view class="video_column">
         <block wx:for="{{topicResult}}">
           <view wx:if="{{index<topicCount}}" class="view_column view_bottomborder">
-            <text class="text_gray text_42">{{item.topicDetail}}</text>
+            <view class='topic_header'>{{item.title}}</view>
+            <view class="text_36 topic_detail">
+              {{item.topicDetail}}
+            </view>
             <view class="view_top10">
-              <block wx:if="{{item.image}}">
-              <image style="height:300rpx;width:100%;" src="{{item.image}}"></image>
+              <block wx:if="{{item.imageUrl}}">
+              <image style="height:20vh;width:100%;" src="../../image/{{item.imageUrl}}"></image>
               </block>
               <view class="padding10 text_30 text_gray">
-                阅读数 {{item.viewCount}} | 评论数 {{item.pv}}
+                阅读数 {{item.pageview}} | 评论数 {{item.pv}}
               </view>
             </view>
           </view>
@@ -118,15 +124,18 @@
         <!--音频页-->
         <view class="video_column">
         <block wx:for="{{listenResult}}">
-          <view wx:if="{{index<listenCount}}" class="video_row">
-            <view class="video_img">
-              <image src="{{item.image}}" mode='aspectFit'></image>
+          <view class="video_row">
+            <view wx:if="{{item.imageUrl}}" class="video_img">
+              <image src="../../image/{{item.imageUrl}}" mode='aspectFit'></image>
+            </view>
+            <view wx:else class="video_img"><!--如果没照片则显示默认照片-->
+              <image src="../../image/top1.png" mode='aspectFit'></image>
             </view>
             <view class="video_detail">
               <text decode='true' space='emsp'>{{item.title}}\n{{item.uName}}\n</text>
               <view class="view_row">
                 <image src="../../image/listen.jpg" style="margin:6rpx;width:30rpx;height:30rpx;"></image>
-                <text space='emsp'> {{item.pageview}}</text>
+                <text space='ensp'> {{item.pageview}}人观看</text>
               </view>
             </view>
             <view class="svideo_like" bindtap='changeListenCount'>

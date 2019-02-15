@@ -1,0 +1,77 @@
+/* pages/test/test.wxss */
+@import "../topic/topic.wxss";
+/*左右边距20*/
+.margin20_lr{
+  margin:0 20rpx 0 20rpx;
+}
+
+/*边距30*/
+.margin30{
+  margin:30rpx;
+}
+
+/*上下内边距10*/
+.pad10_tb{
+  padding: 10rpx 0 10rpx 0;
+}
+
+/*选项样式-未选择*/
+.answer-unselect{
+  width: 50rpx;
+  height: 40rpx;
+  margin-right: 15rpx;
+  border:4rpx solid #5CACEE;
+  color:#5CACEE;
+  border-radius:50%;
+  text-align: center; 
+  padding-bottom:10rpx; 
+}
+
+/*选项样式-已选择*/
+.answer-selected{
+  width: 50rpx;
+  height: 40rpx;
+  margin-right: 15rpx;
+  color:white;
+  background: #5CACEE;
+  border-radius:50%;
+  text-align: center; 
+  padding-bottom:10rpx;
+  border:4rpx solid #5CACEE;
+}
+
+swiper{
+  height: 945rpx;
+}
+
+/*底部换题区*/
+.changeQuestion_bottom{
+  height: 120rpx;
+  width: 250rpx;
+  font-size: 42rpx;
+  text-align: center;
+  background: #C0C0C0;
+}
+
+.changeQuestion_bottom_select{
+  height: 120rpx;
+  width: 250rpx;
+  font-size: 42rpx;
+  text-align: center;
+  background: #5CACEE;
+}
+
+/*切换区照片*/
+.image_qie{
+  height: 54rpx;
+  padding-top:6rpx; 
+}
+
+/*显示所有题目视图样式*/
+.view_allQuestion{
+  bottom: 120rpx;
+  width: 100%;  
+  position: fixed;/*相对于浏览器窗口进行定位*/
+  background-color: #FFFFCC;
+  z-index: 1001;  
+}

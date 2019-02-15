@@ -29,7 +29,8 @@ Page({
         share: 500,
         pv: 670,
         like: 5000
-      }]
+      }],
+    courseInfoWithsource:[]
   },
   clickTab: function (e) { /*点击选项卡切换页面*/
     var that = this; /*将this赋值给临时的that*/
@@ -54,6 +55,30 @@ Page({
   onLoad: function (options) {
     const app = getApp();
     app.changeTabBar();
+    var that = this;
+    console.log(options.cNO)
+    wx.request({
+      url: 'http://localhost:8080/wxggt/ShowCourseSourceSevlet',//请求路径
+      data: {//附带参数
+        cno:options.cNO
+      },
+      method: 'GET',//传输方式
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success: function (res) {//成功后操作
+        console.log(res);
+        that.setData({
+          topicResult: res.data.TopicResult,
+          courseInfoWithsource: res.data.CourseInfoWithsource[0],
+          sourceResult: res.data.CourseInfoWithsource[0].sources
+        });
+        console.log
+      },
+      fail: function (res) {//失败后操作
+        console.log(".....fail.....");
+      }
+    })
   },
 
   /**

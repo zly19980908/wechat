@@ -1,0 +1,103 @@
+<!--pages/test/test.wxml-->
+<view class="view_row margin20_lr pad10_tb" style='white-space:nowrap'>
+  <view>
+    {{Type}} ({{nowIndex}}/10)
+  </view>
+  <view style="margin-left:200rpx">
+    image time
+  </view>
+</view>
+<view class="divLine">
+</view>
+<view class='view_allQuestion' style='display:{{questionDisplay}}'>
+  <view class="view_column margin30">
+    <view class="view_row">
+      <view class='answer-unselect' bindtap='closeAllQuestion' data-id='0'>1</view>
+      <view class='answer-unselect' bindtap='closeAllQuestion' data-id='1'>2</view>
+      <view class='answer-unselect' bindtap='closeAllQuestion' data-id='2'>3</view>
+      <view class='answer-unselect'>4</view>
+      <view class='answer-unselect'>5</view>
+      <view class='answer-unselect'>6</view>
+      <view class='answer-unselect'>7</view>
+      <view class='answer-unselect'>8</view>
+      <view class='answer-unselect'>9</view>
+      <view class='answer-unselect'>10</view>
+    </view>
+    <view class="view_row" style='margin-top:10rpx'>
+      <view class='answer-unselect'>1</view>
+      <view class='answer-unselect'>2</view>
+      <view class='answer-unselect'>3</view>
+      <view class='answer-unselect'>4</view>
+      <view class='answer-unselect'>5</view>
+      <view class='answer-unselect'>6</view>
+      <view class='answer-unselect'>7</view>
+      <view class='answer-unselect'>8</view>
+      <view class='answer-unselect'>9</view>
+      <view class='answer-unselect'>10</view>
+    </view>
+  </view>
+</view>
+<view class="view_column margin30">
+<swiper current='{{currentTab}}' bindchange='changeQuestion'>
+<block wx:for="{{questionResult}}">
+  <swiper-item wx:if="{{Type==='单选题'}}">
+  <view style='margin-top:40rpx'>{{item.Question}}</view>
+  <view class='view_row' style='margin-top:40rpx'>
+    <view class="{{radioClass[0]}}" data-id='0' bindtap='changeRadioSelected'>A</view>
+    {{item.A}}
+  </view>
+  <view class='view_row' style='margin-top:40rpx'>
+    <view class="{{radioClass[1]}}" data-id='1' bindtap='changeRadioSelected'>B</view>
+    {{item.B}}
+  </view>
+  <view class='view_row' style='margin-top:40rpx'>
+    <view class="{{radioClass[2]}}" data-id='2' bindtap='changeRadioSelected'>C</view>
+    {{item.C}}
+  </view>
+  <view class='view_row' style='margin-top:40rpx'>
+    <view class="{{radioClass[3]}}" data-id='3' bindtap='changeRadioSelected'>D</view>
+    {{item.D}}
+  </view>
+  </swiper-item>
+  <swiper-item wx:else>
+    <view style='margin-top:40rpx'>{{item.Question}}</view>
+  <view class='view_row' style='margin-top:40rpx'>
+    <view class="{{radioClass[0]}}" data-id='0' bindtap='checkSelected'>A</view>
+    {{item.A}}
+  </view>
+  <view class='view_row' style='margin-top:40rpx'>
+    <view class="{{radioClass[1]}}" data-id='1' bindtap='checkSelected'>B</view>
+    {{item.B}}
+  </view>
+  <view class='view_row' style='margin-top:40rpx'>
+    <view class="{{radioClass[2]}}" data-id='2' bindtap='checkSelected'>C</view>
+    {{item.C}}
+  </view>
+  <view class='view_row' style='margin-top:40rpx'>
+    <view class="{{radioClass[3]}}" data-id='3' bindtap='checkSelected'>D</view>
+    {{item.D}}
+  </view>
+  <view class='view_row' style='margin-top:40rpx'>
+    <view class="{{radioClass[4]}}" data-id='4' bindtap='checkSelected'>E</view>
+    {{item.E}}
+  </view>
+  </swiper-item>
+</block>
+  </swiper>
+</view>
+<view class='view_row'>
+  <view class='changeQuestion_bottom' hover-class='changeQuestion_bottom_select' bindtap='onPage'>
+    <view class='image_qie'><image src='../../image/test.jpg'></image></view>
+    上一题
+  </view>
+  <view class='changeQuestion_bottom' hover-class='changeQuestion_bottom_select' bindtap='showAllQuestion'>
+    <view>
+      {{nowIndex}}/10
+    </view>
+    选择题目
+  </view>
+  <view class='changeQuestion_bottom' hover-class='changeQuestion_bottom_select' bindtap='nextPage'>
+    <view class='image_qie'><image src='../../image/test.jpg' class='image_qie'></image></view>
+    下一题
+  </view>
+</view>

@@ -6,7 +6,7 @@ App({
     "backgroundColor": "#ffffff",
     "borderStyle": "black",
     list: [{
-      pagePath: "../index/index",
+      pagePath: "../test/test",
         text: "首页",
         iconPath: "../../image/index1.png",
         selectedIconPath: "../../image/index2.png",

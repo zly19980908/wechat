@@ -3,8 +3,8 @@
 <!--发布话题-->
 <view style='text-align:center'><text class="text_36 topic_nick">{{nick}}</text></view>
 <view class="view_column">
-  <input placeholder='请输入标题' bindfocus='focuheader' class='topic_header {{header}}'></input>
-  <view class='topic_content {{main}}'><textarea bindfocus='focucontent' class="topic_area" placeholder='讲究个分享' maxlength='500'></textarea>
+  <input placeholder='请输入标题' bindfocus='focuheader' bindinput='inputTitle' class='topic_header {{header}}'></input>
+  <view class='topic_content {{main}}'><textarea bindfocus='focucontent' class="topic_area" bindinput='inputContent' placeholder='讲究个分享' maxlength='500'></textarea>
   <view class='imageview_row'>
   <image class="icon-image" wx:for="{{tempFilePaths}}" mode='aspectFill' src='{{item}}' data-id='{{index}}'   bindtap='delete'></image>
   <image class='camera-button' bindtap='chooseimage' src='../../image/camera.png'></image>

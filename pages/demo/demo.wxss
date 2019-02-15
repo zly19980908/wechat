@@ -67,6 +67,17 @@
   text-align: center;
 }
 
+.weui-icon-clear{
+  /*清空图标*/
+  margin: 10rpx 10rpx 0rpx 20rpx;
+  position: absolute;
+  left: 325rpx;
+  z-index: 1001;
+  width: 20rpx;
+  height: 60rpx;
+  text-align: center;
+}
+
 .text_recommended {
   margin-top: 20rpx;
   font-size: 45rpx;
@@ -273,4 +284,23 @@ image {
   text-align: center;
   border-radius:5px 50px 50px 5px;
   background: linear-gradient(to right, rgb(255, 138, 0),rgb(255, 118, 0),rgb(255, 98, 0),rgb(255, 78, 0),rgb(255, 58, 0));
+}
+
+/*话题详细*/
+.topic_detail{
+  margin: 0 20rpx 0 20rpx;
+  width:650rpx;
+  overflow:hidden; /*超出一行文字自动隐藏*/
+  text-overflow:ellipsis;/*溢出的以省略号显示*/
+  display: -webkit-box;
+  -webkit-line-clamp: 2;/*与上下两个属性结合使用*/
+  -webkit-box-orient: vertical;
+}
+
+/*话题标题*/
+.topic_header{
+  margin: 0 20rpx 30rpx 20rpx;
+  width:650rpx;
+  height:5vh;
+  font-size: 42rpx;
 }
